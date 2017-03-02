@@ -178,7 +178,7 @@ local function setup(p)
 	end
 
 	local btn = HpwRewrite.VGUI:CreateButton("Wand API", 0, 0, 150, 30, p, function() 
-		gui.OpenURL("https://github.com/Ayditor/HPW_Rewrite/wiki") 
+		gui.OpenURL("https://github.com/Ayditor/HPW_Rewrite/wiki/Wand-API") 
 	end)
 	p:AddItem(btn)
 

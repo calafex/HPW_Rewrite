@@ -1107,8 +1107,8 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 			self:CreateLabel(HpwRewrite.Language:GetWord("#faq_msg1"), 10, pos, faq):SetColor(HpwRewrite.Colors.LightBlue)
 			pos = pos + 50
 
-			local btn = self:CreateButton(HpwRewrite.Language:GetWord("#bugsthread"), 415, 13, 120, 24, faq, function() end)
-			local btn = self:CreateButton(HpwRewrite.Language:GetWord("#qathread"), 415, 38, 120, 24, faq, function() end)
+			local btn = self:CreateButton(HpwRewrite.Language:GetWord("#bugsthread"), 415, 13, 120, 24, faq, function() gui.OpenURL("https://github.com/Ayditor/HPW_Rewrite/issues") end)
+			local btn = self:CreateButton(HpwRewrite.Language:GetWord("#qathread"), 415, 38, 120, 24, faq, function() gui.OpenURL("http://steamcommunity.com/workshop/filedetails/discussion/875498456/135510393202106420") end)
 
 			for k, v in pairs(HpwRewrite.Manuals.FAQ) do
 				self:CreateLabel(string.rep("_", 75), 10, pos, faq):SetColor(HpwRewrite.Colors.DarkGrey3)
@@ -1228,7 +1228,7 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 			end)
 
 			local btn = createbtn(HpwRewrite.Language:GetWord("#apidoc"), function()
-				gui.OpenURL("https://github.com/ProfessorBear/Wand/wiki/API-Documentation")
+				gui.OpenURL("https://github.com/Ayditor/HPW_Rewrite/wiki/Wand-API")
 			end)
 		end
 
