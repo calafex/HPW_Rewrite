@@ -177,13 +177,13 @@ local function setup(p)
 		self:SetSize(w, w * 0.8)
 	end
 
-	local btn = HpwRewrite.VGUI:CreateButton("Online help", 0, 0, 150, 30, p, function() 
-		--gui.OpenURL("") 
+	local btn = HpwRewrite.VGUI:CreateButton("Wand API", 0, 0, 150, 30, p, function() 
+		gui.OpenURL("https://github.com/Ayditor/HPW_Rewrite/wiki") 
 	end)
 	p:AddItem(btn)
 
 	local btn = HpwRewrite.VGUI:CreateButton("Having issue? Let us know", 0, 0, 150, 30, p, function() 
-		--gui.OpenURL("") 
+		gui.OpenURL("https://github.com/Ayditor/HPW_Rewrite/issues/new") 
 	end)
 	p:AddItem(btn)
 
