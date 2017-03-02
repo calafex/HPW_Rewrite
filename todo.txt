@@ -1,0 +1,117 @@
+﻿-waddiwasi - make a choose what player to attack
+-nerf godivillio so it is 0.5 sec long
+-trap duo must create mines that react only to player
+-antitrap duo highlights all mines
+-major bug fix for animations and autofire spells -- not fixable, add to known bugs
+
+//fix a bug when your god mode disappears after knockdown
+//fix a bug when in instant cast mode you choose spell in spelltree you are instantly casting it
+//fix effects
+//apply to player all damage dealt to ragdoll while knocked down
+//expulso - sound, warp and light color ???
+//fix sprite wh
+//make throwplayer in-fly counter and develop a formula for it 
+//make throwplayer able to do massive knockdown
+//fix insta bind fire in seats
+//fix throwplayer spawning 2 ragdolls
+//fix GAMEMODE.SpawnPoints wiping when remove thrown players
+//legimmio must act like protego
+//fix sparks positions
+//fix "Changing collision rules within a callback is likely to cause crashes!" by replacing
+	OnCollide with AfterCollide
+//collapsio fix
+//antitrap must highlight mines not remove them
+//traps have too big radius and some detection problems
+//better trails for white apparation
+//add magicsprite.vtf file (because some addons can override default one)
+//[ERROR] addons/wand/lua/hpwrewrite/spells/special/godivillio.lua:87
+
+add icons
+{
+	//forbefire
+	//periculum
+	//propositum charm
+	//purple firecrackers
+	//shield penentration
+	//switching spell
+}
+
+spell tweaks
+{
+	-perfectium - add blood effect
+	-dwisp - impact effect
+	-aguamenti - weird delay
+	-mimblewimble - color mismatch
+	-mostro - impact color mismatch
+	-blind and noice spells - increase effect time
+	-carpe retractum - can make you stuck, also doesnt check if object is prop and if its frozen, too big distance limit
+	-deprimo - add description
+	-bombarda - nerf 
+	-bombarda maxima - nerf
+	-dragoner - nerf
+	-waddiwasi - nerf
+	-reducto - impacts
+	-arrow shooting spell - looks weird
+	-expulso and stuff like it - disable igniting
+	-crucio - sounds fix, kills when ragdollized
+	-deletrius - increase damage to instakill - unable
+	-waddiwasi - strider behaviour
+	-secare - nerf
+	-grenadio - nerf, effect, Changing collision rules within a callback is likely to cause crashes!
+	-fumos - smoke effect tweak
+	-engorgio skullus - weird behaviour
+	-impedimenta - effect?
+	-impedimenta - switch effect to stupefy's?
+	-hail of bullets - make concentration matter
+	-hail of bullets duo - nerf?
+	-deletrius - effect
+	-geminio - causing lags
+	-collapsio - increase duration and nerf 
+	-flipendo - error
+	-descendo - make separate spell, make descendo do what it is supposed to do
+	-trap and disarm curses - awful decals and highlighting, also effects
+	-shield penentration - buff
+	-fumos shouldnt say
+	-antihellia doesnt fall down
+	-atomic boom missing texture
+	-obscuratio weird in multiplayer
+	-periculum - weird effect
+	-red sparks - effect 
+	-green sparks - effect
+	-hiding charm - effect
+	-salvio hexia - propspawn effect?
+	-hail of bullets remove print
+	-def damage owner
+	-balloonico ropes
+	
+	//dimentio invisible
+	//dimentio dont deal damage
+	dimentio entities (maybe)
+	//dimentio dont remove esc - CANT BE FIXED due to how ghud chat works
+	
+	//colovaria paints world - HACK: its either player or prop_physics
+	//npcs dont shoot after ragdollizing
+	
+	
+	forbefire - everything
+	//add spells for mind's effects - NOPE
+}
+
+muffliato crash ???
+
+look for possible conflicts with AZERTY keyboard
+//fix throwing damage for DarkRP and probably other gamemodes --darkrp only --fuk it
+
+--[[some particle systems are broken, need to add to particles.lua
+{
+	hpw_forbefire_impact --doesnt even exist
+	hpw_fire1
+	hpw_fire2
+	hpw_bloodtrail
+}]]
+
+//add variable that will allow you to choose spell without closing a menu
+//more spell packs and icons for them? {destroying and explosive, generic, healing, lighting, physics, protecting, special, unforgivable}
+//tweak descriptions so they wont show spell effect duration
+//fix descriptions of skins
+//fix russian translation

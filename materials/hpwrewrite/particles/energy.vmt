@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "hpwrewrite/particles/energy"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+	"$additive" 1
+}

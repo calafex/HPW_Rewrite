@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "vgui/hpwrewrite/misc/background"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+}

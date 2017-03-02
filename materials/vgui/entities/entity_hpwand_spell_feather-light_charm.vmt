@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "vgui/entities/entity_hpwand_spell_feather-light_charm"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+}

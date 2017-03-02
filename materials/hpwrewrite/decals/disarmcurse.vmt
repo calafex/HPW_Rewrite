@@ -1,0 +1,7 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "hpwrewrite/decals/disarmcurse"
+	"$decal" 1
+  	"$decalscale" 0.03
+   	"$vertexalpha" 1
+}

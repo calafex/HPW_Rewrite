@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "vgui/entities/entity_hpwand_spell_windows_10"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+}

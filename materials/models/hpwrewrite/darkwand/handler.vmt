@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/hpwrewrite/darkwand/darkwand"
+	"$bumpmap" "models/hpwrewrite/darkwand/darkwandn"
+
+	"$phong" "1"
+	"$phongexponent" "0.1"
+	"$phongboost" "130"
+	"$phongfresnelranges" "[0 5 5]"
+
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[.05 .05 .05]"
+}

@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "vgui/hpwrewrite/spellcellempty"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+}

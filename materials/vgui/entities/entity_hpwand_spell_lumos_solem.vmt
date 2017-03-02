@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "vgui/entities/entity_hpwand_spell_lumos_solem"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+}

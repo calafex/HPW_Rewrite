@@ -1,0 +1,14 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/hpwrewrite/fork/fork"
+	"$bumpmap" "models/hpwrewrite/fork/forkn"
+	"$surfaceprop" "metal"
+
+	"$phong" "1"
+	"$phongexponent" "40"
+	"$phongboost" ".6"
+	"$phongfresnelranges" "[.3 15 20]"
+
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[.01 .01 .01]"
+}

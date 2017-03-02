@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/hpwrewrite/magicwand/magicwand"
+	"$bumpmap" "models/hpwrewrite/magicwand/magicwandn"
+
+	"$normalmapalphaenvmapmask" "1"
+
+	"$phong" "1"
+	"$phongexponent" "30"
+	"$phongboost" "0.04"
+	"$phongfresnelranges" "[0 12 1]"
+}

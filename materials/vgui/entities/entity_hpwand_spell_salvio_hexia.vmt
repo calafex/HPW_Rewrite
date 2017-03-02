@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "vgui/entities/entity_hpwand_spell_salvio_hexia"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+}

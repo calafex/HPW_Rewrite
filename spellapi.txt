@@ -1,0 +1,82 @@
+-------------------------------- Help --------------------------------
+------------ This is creating spell / skin documentation -------------
+
+-- Spell table should contain Description and OnFire or they will be initialized automatically
+
+WARNING: I really do not recommend you saving any data in clientside spell's structure, because it will be lost
+Note: Most of functions are serverside only !!!
+	
+FlyEffect = string pcf effect name
+LearnTime = int
+ForceAnim = { enums ACT_VM_ ... } -- It seems like enums won't work, use decimals instead
+
+DoSparks = bool
+ShouldSay = bool
+ShowInSpawnmenu = bool
+CreateEntity = bool
+InstantLearn = bool
+ShouldCount = bool -- If false, it won't count it in (HpwRewrite.NumOfSpells or HpwRewrite.NumOfSkins) and PLAYER.HpwRewrite.NumOfSpells
+SecretSpell = bool -- If true, player won't be able to get this spell with learning
+DoCongrats = bool -- Should we congratulate player if he just got secret spell?
+Description = string -- It's better to use [ [ ] ] string not ""
+Models = { string, string ... } -- Models for spell book
+
+NodeIntersectDist = int
+NodeOffset = Vector
+NodeDraw = function(nodeReference, x, y, radius) -- When node is drawing in the spelltree, return true to override default drawing
+NodeDrawOpti = function(nodeReference, x, y, radius) -- Optimized version (will stop drawing when not seeing), return true to override default drawing
+NodeEdgeDraw = function(parentNodeReference, parentX, parentY, childNodeReference, childX, childY, radius) -- This function calls for every child of edge, return true to override default drawing
+NodeEdgeToParentDraw = function(childNodeReference, childX, childY, parentNodeReference, parentX, parentY, radius) -- From child to parent edge
+
+OnlyWithSkin = { string, string ... } -- Make spell available only with these skins
+OnlyIfLearned = { string, string ... } -- Will block learning if these spells are not learned
+
+Fightable = bool -- Should we fight with someone? Fighting will start only if both collided spells has this flag
+FightingEffect = string pcf effect name
+
+OnSelect = function(wand) return true | false -- False will block spell selection
+OnHolster = function(wand) 
+
+PreFire = function(wand) return true | false
+OnFire = function(wand) return true | false -- True will spawn spell - entity_hpwand_flyingspell. Skin can have OnFire function too
+
+OnStartLearn = function(ply) return true | false
+OnPreLearn = function(ply) return true | false
+OnPostLearn = function(ply)
+OnStopLearn = function(ply)
+
+OnSpellGiven = function(ply) return true | false -- When PlayerGiveSpell called
+OnSpellRemoved = function(ply) -- When PlayerRemoveSpell called
+
+OnSpellSpawned = function(wand, spell)
+
+-- Be careful when you're trying to do something with spell.Owner
+Draw = function(spell)
+SpellThink = function(spell) -- Think of flying spell
+PhysicsThink = function(spell) -- Physics of flying spell; return angForce Vector, force Vector, shouldOverride bool
+
+-- Please don't use more than data.HitEntity, data.HitPos, data.Speed, data.HitNormal in data table
+OnCollide = function(spell, data, physobj) -- When flying spell collides with something, return true to override default collide
+OnRemove = function(spell)
+
+Think = function(wand) -- Think of current spell / current skin
+
+
+-- Only for skins:
+
+PreSkinSelect = function(wand) return true | false
+PreDrawViewModel = function(wand, vm)
+OnSkinSelect = function(wand)
+OnSkinHolster = function(wand)
+GetSpellPosition = function(wand, oldpos) -- return Vector to override spell position
+
+SpellFilter = { string, string ... } -- Will block these spells with your skin
+OnlyTheseSpells = { string, string ... } -- Only these spells can be used
+
+AutoFire = bool -- SWEP.Primary.Automatic, use only to set it to true
+ShouldLearn = bool -- Should we add skin to learnables or give it instantly?
+
+
+WARNING: AddSpell function must be called in shared
+
+----------------------------------------------------------------------

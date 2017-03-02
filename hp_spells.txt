@@ -1,0 +1,139 @@
++ will be
+? probably will be
+- wont be
+& probably will be in special
+
+
+## Already exist
+
++Avada Kedavra +
++Confringo +
++Expelliarmus +
++Lumos / Nox +
++Lumos Maxima +
++Lumos Solem +
++Protego +
++Reducto +
++Wingardium Leviosa +
++Accio +
++Alarte Ascendare +
++Alohomora +
++Arresto Momentum +
++Ascendio + 
++Avis +
++Bombarda +
++Bombarda Maxima +
++Colloshoo +
++Colovaria +
++Crucio +
++Carpe Retractum +
++Episkey +
++Expulso +
++Everte Statum +
++Flipendo +
++Levicorpus +
++Rictusempra ?
++Sectumsempra +
++Stupefy +
++Waddiwasi +
++Vulnera Sanentur +
++Tarantallegra +
++Salvio Hexia ?
++Descendo +
++Immobulus +
++Green Sparks +
++Impedimenta +
++Lumos Duo +
++Mimblewimble +
++Muffliato +
++Reducio +
++Petrificus Totalus +
++Aguamenti +
++Engorgio +
++Colloportus +
++Deletrius +
++Fumos +
++Deprimo +
++Obscuro +
++Conjunctivitis Curse +
++Extinguishing spell +
++Geminio +
++Inflatus ?
++Feather-light charm +
++Engorgio Skullus ?
++Purple Firecrackers +
++Arrow-shooting spell ?
++Shield penetration spell ?
++Switching Spell ?
++Periculum +
++Unbreakable Charm +
++Verdillious +
++Verdimillious +
++Verdimillious Duo +
+
+## Planned
+
+Caterwauling Charm +
+Confundo +
+Evanesco +
+Finite Incantatem +
+Firestorm +
+Flipendo Duo +
+Flipendo Tria +
+Fumos Duo +
+Glacius +
+Glacius Duo +
+Glacius Tria +
+Homenum Revelio +
+Imperio +
+Incendio +
+Incendio Duo +
+Incendio Tria +
+Portus +
+Reparo +
+Ventus +
+Ventus Duo +
+
+## Not planned
+
+Fiendfyre ?
+Aqua Eructo ?
+Bewitched Snowballs ?
+Cave Inimicum ?
+Diffindo ?
+Epoximise ?
+Hover Charm ?
+Legilimens ?
+Liberacorpus ?
+Morsmordre ?
+Oppugno ?
+Orchideous ?
+Protego Horribilis ?
+Protego Maxima ?
+Protego Totalum ?
+Pus-squirting hex ?
+Redactum Skullus ?
+Relashio ?
+Repello Inimicum ?
+Shooting spell ?
+Smashing spell ?
+Slugulus Eructo ?
+Sonorous Charm ?
+Sonorus / Quietus ?
+Spongify ?
+Teleportation Spell ?
+
+Expecto Patronum ??
+
+Scorching Spell - &
+
+
+## Will not be
+
+Homorphus Charm -
+Multicorfors - (similar to colovaria)
+Melofors -
+Partis Temporus -
+Titillando -
+Transmogrifian Torture -
+Washing up spell -

@@ -1,0 +1,7 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "hpwrewrite/decals/dragoner"
+	"$decal" 1
+  	"$decalscale" 0.1
+   	"$vertexalpha" 1
+}
