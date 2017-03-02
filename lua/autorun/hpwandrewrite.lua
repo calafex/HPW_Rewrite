@@ -3,7 +3,7 @@ if SERVER then AddCSLuaFile() end
 HpwRewrite = HpwRewrite or { }
 
 HpwRewrite.Version = 1
-HpwRewrite.VCheckLink = "https://raw.githubusercontent.com/ProfessorBear/Wand/master/info.txt"
+HpwRewrite.VCheckLink = "https://raw.githubusercontent.com/Ayditor/HPW_Rewrite/master/info.txt"
 HpwRewrite.FavouriteSpells = HpwRewrite.FavouriteSpells or { }
 HpwRewrite.DebugInfo = HpwRewrite.DebugInfo or { }
 
