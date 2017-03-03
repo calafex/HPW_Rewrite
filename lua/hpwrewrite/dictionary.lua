@@ -3,23 +3,6 @@ HpwRewrite.Language.Languages = HpwRewrite.Language.Languages or { }
 
 HpwRewrite.Language.CurrentLanguage = "en"
 
-local cvar = GetConVar("gmod_language")
-if cvar then
-	HpwRewrite.Language.CurrentLanguage = string.lower(cvar:GetString())
-else
-	print("[Wand] Can't find 'gmod_language' variable!")
-end
-
-local customlang = HpwRewrite.CVars.Language
-if customlang then
-	local val = customlang:GetString()
-	if val != customlang:GetDefault() then
-		HpwRewrite.Language.CurrentLanguage = string.lower(val)
-	end
-end
-
-print("[Wand] Loaded " .. HpwRewrite.Language.CurrentLanguage .. " language!")
-
 function HpwRewrite.Language:AddLanguage(codename, name)
 	if self.Languages[codename] then return end
 
@@ -63,3 +46,13 @@ function HpwRewrite.Language:GetWord(index, lCodeName)
 end
 
 HpwRewrite:IncludeFolder("hpwrewrite/language", true)
+
+local customlang = HpwRewrite.CVars.Language
+if customlang then
+	local val = customlang:GetString()
+	if val != customlang:GetDefault() and HpwRewrite.Language.Languages[val] then
+		HpwRewrite.Language.CurrentLanguage = string.lower(val)
+	end
+end
+
+print("[Wand] Loaded " .. HpwRewrite.Language.CurrentLanguage .. " language!")

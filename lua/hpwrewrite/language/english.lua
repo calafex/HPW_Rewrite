@@ -1,7 +1,7 @@
 HpwRewrite.Language:AddLanguage("en", "English")
 
 local tab = HpwRewrite.Language
-local f = HpwRewrite.Language.AddWord
+local f = tab.AddWord
 
 
 -- VGUI
