@@ -5,7 +5,7 @@ HpwRewrite.Language.CurrentLanguage = "en"
 
 local cvar = GetConVar("gmod_language")
 if cvar then
-	if HpwRewrite.Languages[string.lower(cvar:GetString())] then
+	if HpwRewrite.Language.Languages[string.lower(cvar:GetString())] then
 		HpwRewrite.Language.CurrentLanguage = string.lower(cvar:GetString())
 	end
 else
