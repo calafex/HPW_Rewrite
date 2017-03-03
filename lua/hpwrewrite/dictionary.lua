@@ -47,6 +47,19 @@ end
 
 HpwRewrite:IncludeFolder("hpwrewrite/language", true)
 
+-- Defaulting to ENGLISH if your homelang is not found
+
+local cvar = GetConVar("gmod_language")
+if cvar then
+	HpwRewrite.Language.CurrentLanguage = string.lower(cvar:GetString())
+	
+	if HpwRewrite.Language.Languages[string.lower(cvar:GetString())] then
+		HpwRewrite.Language.CurrentLanguage = string.lower(cvar:GetString())
+	end
+else
+ 	print("[Wand] Can't find 'gmod_language' variable!")
+end
+
 local customlang = HpwRewrite.CVars.Language
 if customlang then
 	local val = customlang:GetString()
