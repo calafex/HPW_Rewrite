@@ -5,7 +5,9 @@ HpwRewrite.Language.CurrentLanguage = "en"
 
 local cvar = GetConVar("gmod_language")
 if cvar then
-	HpwRewrite.Language.CurrentLanguage = string.lower(cvar:GetString())
+	if self.Languages[string.lower(cvar:GetString())] then
+		HpwRewrite.Language.CurrentLanguage = string.lower(cvar:GetString())
+	end
 else
 	print("[Wand] Can't find 'gmod_language' variable!")
 end
