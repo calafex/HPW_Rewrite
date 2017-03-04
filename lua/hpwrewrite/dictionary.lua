@@ -51,8 +51,6 @@ HpwRewrite:IncludeFolder("hpwrewrite/language", true)
 
 local cvar = GetConVar("gmod_language")
 if cvar then
-	HpwRewrite.Language.CurrentLanguage = string.lower(cvar:GetString())
-	
 	if HpwRewrite.Language.Languages[string.lower(cvar:GetString())] then
 		HpwRewrite.Language.CurrentLanguage = string.lower(cvar:GetString())
 	end
