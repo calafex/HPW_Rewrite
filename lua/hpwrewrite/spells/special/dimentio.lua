@@ -29,7 +29,7 @@ function Spell:OnCollide(spell, data)
 	local ply = data.HitEntity
 	
 	if IsValid(ply) and ply:IsPlayer() then
-		if not ply.HpwRewrite.WasInDimension then
+		--if not ply.HpwRewrite.WasInDimension then
 			ply.HpwRewrite.InDimension = true
 			
 			local oldWep = ""
@@ -60,10 +60,10 @@ function Spell:OnCollide(spell, data)
 			net.Send(ply)
 
 			ply.HpwRewrite.WasInDimension = true
-		else
+		--[[else
 			util.ScreenShake(data.HitPos, 4000, 4000, 3, 200)
 			sound.Play("npc/stalker/go_alert2a.wav", data.HitPos, 60, 90)
-		end
+		end--]]
 	end
 end
 
