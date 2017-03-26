@@ -3,11 +3,11 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_anim"
 ENT.Model = ""
-ENT.Spawnable =  false
+ENT.Spawnable = false
 
 if SERVER then
 	function ENT:CheckCanSpawn(ply)
-		if not IsValid(ply) then return false end
+		--if not IsValid(ply) then return false end
 
 		if HpwRewrite:IsSpellInAdminOnly(self.PrintName) and not HpwRewrite.CheckAdmin(ply) then 
 			HpwRewrite:DoNotify(ply, "Only admins can spawn " .. self.PrintName .. "!", 1)
@@ -47,7 +47,7 @@ if SERVER then
 			self:Remove()
 			return
 		end
-
+	
 		if not self:CheckCanSpawn(self.Owner) then
 			self:Remove()
 			return
