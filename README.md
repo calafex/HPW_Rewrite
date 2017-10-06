@@ -2,6 +2,26 @@
 
 
 
+### If you want to do a bug report
+If you have the addon spamming your console with lua errors, post them
+with a **short explanation** of what is erroring or what had caused an error.
+
+If instead, you have encountered a gamebreaking glitch that isnt generating
+any errors, please **provide a detailed list** of your mounted content.
+
+Example:
+```
+[Content]
+TF2
+Portal2
+
+[Addons]
+SProps
+Wiremod
+Adv.Dupe 2
+No collide - Multi
+```
+
 ### For developers
 Want to make a skin or a spell? Read spellapi.txt.
 
