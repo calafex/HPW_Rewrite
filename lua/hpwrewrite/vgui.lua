@@ -2040,13 +2040,3 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 
 	return win
 end
-
-
-
-
-
-
-
-
-
-
