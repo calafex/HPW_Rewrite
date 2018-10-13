@@ -905,24 +905,19 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 
 	AddSpells = function()
 		-- Adding spell tree
-		-- local hide = HpwRewrite.CVars.HideTree:GetBool()
+		if not newspells then
+			newspells = vgui.Create("HPWSpellTree", win)
 
-		-- if not hide then
-			if not newspells then
-				newspells = vgui.Create("HPWSpellTree", win)
+			newspells.CatchClick = function(newspells, name)
+				CreateInfoPanel(name)
+				if HpwRewrite:CanUseSpell(LocalPlayer(), name) and HpwRewrite.CVars.CloseOnSelect:GetBool() then win:Close() end
 
-				newspells.CatchClick = function(newspells, name)
-					CreateInfoPanel(name)
-					if HpwRewrite:CanUseSpell(LocalPlayer(), name) and HpwRewrite.CVars.CloseOnSelect:GetBool() then win:Close() end
-
-					HpwRewrite:RequestSpell(name)
-				end
+				HpwRewrite:RequestSpell(name)
 			end
+		end
 
-			if newspells.Added then newspells:Update() end
-			newspells.Added = true
-		-- end
-
+		if newspells.Added then newspells:Update() end
+		newspells.Added = true
 
 		-- Adding spells with categories
 		if not spells then spells = self:CreateScrollPanel() end
