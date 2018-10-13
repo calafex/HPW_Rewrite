@@ -160,8 +160,8 @@ local Spell = { }
 Spell.Base = "Disarm Curse"
 Spell.Description = [[
 	Destroys all nearby placed
-	by Trap Curse and Trap Curse 
-	Duo mines.
+	Trap Curse mines. Makes Trap 
+	Curse Duo mines less effective.
 ]]
 
 Spell.OnlyIfLearned = { "Trap Curse Duo", "Disarm Curse" }
