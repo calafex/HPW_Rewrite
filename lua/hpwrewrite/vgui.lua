@@ -905,9 +905,9 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 
 	AddSpells = function()
 		-- Adding spell tree
-		local hide = HpwRewrite.CVars.HideTree:GetBool()
+		-- local hide = HpwRewrite.CVars.HideTree:GetBool()
 
-		if not hide then
+		-- if not hide then
 			if not newspells then
 				newspells = vgui.Create("HPWSpellTree", win)
 
@@ -921,7 +921,7 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 
 			if newspells.Added then newspells:Update() end
 			newspells.Added = true
-		end
+		-- end
 
 
 		-- Adding spells with categories
@@ -1965,11 +1965,15 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 	end
 	self:SetupSheetDrawing(sheet2, HpwRewrite.Colors.DarkGrey5)
 	
-	sheet:AddSheet(HpwRewrite.Language:GetWord("#maintree"), newspells)
+	if not HpwRewrite.CVars.HideTree:GetBool() then
+		sheet:AddSheet(HpwRewrite.Language:GetWord("#maintree"), newspells)
+	end
+	
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#spelllist"), spells)
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#wandskins"), skins)
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#spellbinding"), binding)
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#settingshelp"), info)
+	
 	if (not game.SinglePlayer() or HpwRewrite.CVars.DebugMode:GetBool()) and HpwRewrite.CheckAdmin(LocalPlayer()) then
 		sheet:AddSheet(HpwRewrite.Language:GetWord("#adminpanel"), admin)
 	end
