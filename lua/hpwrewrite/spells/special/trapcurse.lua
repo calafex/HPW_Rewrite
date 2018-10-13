@@ -39,7 +39,7 @@ if SERVER then
 			for k, ent in pairs(ents.FindInSphere(pos, 60)) do
 				if ent == data.Owner and data.FreeOwner then continue end
 				if ent.IsHarryPotterSpell or ent.Traps then continue end
-				//if ent:GetClass() == "entity_hpwand_flyingspell" then 
+				--if ent:GetClass() == "entity_hpwand_flyingspell" then 
 				local phys = ent:GetPhysicsObject()
 
 				if phys:IsValid() and phys:GetVelocity():Length() > 10 then
@@ -100,7 +100,7 @@ Spell.Description = [[
 ]]
 
 --Spell.WhatToSay = "Disarm"
-//Spell.ApplyFireDelay = 1
+--Spell.ApplyFireDelay = 1
 Spell.ShouldSay = false
 Spell.AccuracyDecreaseVal = 0.5
 Spell.Category = { HpwRewrite.CategoryNames.Special }
@@ -119,17 +119,13 @@ function Spell:OnFire(wand)
 			if data.FreeOwner then HpwRewrite.MakeEffect("hpw_mine_detect_duo", pos, data.Normal:Angle())
 			else HpwRewrite.MakeEffect("hpw_mine_detect", pos, data.Normal:Angle()) end
 
-			//local n = data.Normal
-			//util.Decal("HpwDisarmCurse", pos - n, pos + n)
+			--local n = data.Normal
+			--util.Decal("HpwDisarmCurse", pos - n, pos + n)
 		end
 	end
 end
 
 HpwRewrite:AddSpell("Disarm Curse", Spell)
-
-
-
-
 
 
 
@@ -145,7 +141,7 @@ Spell.Description = [[
 ]]
 
 Spell.OnlyIfLearned = { "Trap Curse" }
-//Spell.ApplyFireDelay = 1.5
+--Spell.ApplyFireDelay = 1.5
 Spell.NodeOffset = Vector(-1350, -479, 0)
 Spell.ImpactEffect = "hpw_mine_place_duo"
 

@@ -584,7 +584,7 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 	do
 		local bar = vgui.Create("DProgress", win)
 		bar:SetPos(0, 0)
-		bar:SetSize(784, 24)
+		bar:SetSize(792, 24)
 
 		win.ProgressBar = bar
 
@@ -606,7 +606,7 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 
 		bar.Paint = function(self, w, h)
 			draw.RoundedBox(0, 0, 0, w, h, HpwRewrite.Colors.DarkGrey2)
-			draw.RoundedBox(0, 0, 0, (w - 1) * self:GetFraction(), h, HpwRewrite.Colors.Blue)
+			draw.RoundedBox(0, 0, 0, w * self:GetFraction(), h, HpwRewrite.Colors.Blue)
 		end
 	end
 
