@@ -1299,19 +1299,17 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 		-- Server settings
 		local serveropt
 		local serverset = HpwRewrite.Language:GetWord("#serversettings")
-		if HpwRewrite.CheckAdmin(LocalPlayer()) then
-			serveropt = self:CreateScrollPanel()
-			serveropt:SetName(serverset)
-			serveropt.HPWColorDraw = HpwRewrite.Colors.White
+		serveropt = self:CreateScrollPanel()
+		serveropt:SetName(serverset)
+		serveropt.HPWColorDraw = HpwRewrite.Colors.White
 
-			local p = vgui.Create("ControlPanel", serveropt)
-			HpwRewrite.VGUI.CreateServerOptions(p)
+		local p = vgui.Create("ControlPanel", serveropt)
+		HpwRewrite.VGUI.CreateServerOptions(p)
 
-			local old = serveropt.PerformLayout
-			serveropt.PerformLayout = function(self, w, h) 
-				old(self, w, h) 
-				p:SetSize(self:GetWide(), p:GetTall())
-			end
+		local old = serveropt.PerformLayout
+		serveropt.PerformLayout = function(self, w, h) 
+			old(self, w, h) 
+			p:SetSize(self:GetWide(), p:GetTall())
 		end
 
 		-- List of CVars
@@ -1338,7 +1336,9 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 		sheet2:AddSheet(HpwRewrite.Language:GetWord("#helpstuff"), help)--, "icon16/cog.png")
 		sheet2:AddSheet(HpwRewrite.Language:GetWord("#maininfo"), other)--, "icon16/book.png")
 		sheet2:AddSheet(clientset, clientopt)--, "icon16/cog_edit.png")
-		sheet2:AddSheet(serverset, serveropt)--, "icon16/cog_edit.png")
+		if (HpwRewrite.CheckAdmin(LocalPlayer())) then
+			sheet2:AddSheet(serverset, serveropt)--, "icon16/cog_edit.png")
+		end
 		sheet2:AddSheet(HpwRewrite.Language:GetWord("#listcvar"), cvarList)--, "icon16/script_gear.png")
 
 		self:SetupSheetDrawing(sheet2, HpwRewrite.Colors.DarkGrey5)
@@ -1720,260 +1720,259 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 
 	-- Admin panel
 	local admin
-	if (not game.SinglePlayer() or HpwRewrite.CVars.DebugMode:GetBool()) and HpwRewrite.CheckAdmin(LocalPlayer()) then
-		admin = vgui.Create("DPanel", win)
-		admin.Paint = function() end
+	admin = vgui.Create("DPanel", win)
+	admin.Paint = function() end
 
-		local sheet2 = self:CreateSheet(0, 0, sheetWidth, 530, admin)
+	local sheet2 = self:CreateSheet(0, 0, sheetWidth, 530, admin)
 
-		-- Tab1 - player controlling
-		do
-			local buttons = { }
-			local height = 0
+	-- Tab1 - player controlling
+	do
+		local buttons = { }
+		local height = 0
 
-			local function EmptyButtons()
-				for k, v in pairs(buttons) do
-					v:Remove()
-					buttons[k] = nil
-				end
-
-				height = 0
+		local function EmptyButtons()
+			for k, v in pairs(buttons) do
+				v:Remove()
+				buttons[k] = nil
 			end
 
-			local spells = self:CreateScrollPanel(nil, nil, nil, nil, win, true)
-			local selplayer = LocalPlayer()
-			local InPlayerMenu = false
+			height = 0
+		end
 
-			local function AddPlayers()
-				InPlayerMenu = false
+		local spells = self:CreateScrollPanel(nil, nil, nil, nil, win, true)
+		local selplayer = LocalPlayer()
+		local InPlayerMenu = false
+
+		local function AddPlayers()
+			InPlayerMenu = false
+			EmptyButtons()
+			
+			for k, v in pairs(player.GetAll()) do
+				local btn = self:CreateButton(v:Name(), 0, (k - 1) * 26, 565, 25, spells, function()
+					selplayer = v
+					
+					net.Start("hpwrewrite_AdminFunctions")
+						net.WriteUInt(10, 5)
+						net.WriteEntity(v)
+					net.SendToServer()
+				end)
+
+				table.insert(buttons, btn)
+			end
+		end
+
+		local old = spells.Paint
+		local learned = HpwRewrite.Language:GetWord("#learned")
+		local learnable = HpwRewrite.Language:GetWord("#learnable")
+		spells.Paint = function(spells, w, h)
+			old(spells, w, h)
+
+			surface.SetDrawColor(HpwRewrite.Colors.DarkGrey2)
+			surface.DrawLine(w / 2, 0, w / 2, height > 0 and 28 + height * 26 or 0)
+
+			draw.SimpleText(learned, "HPW_gui1", 16, 6, HpwRewrite.Colors.White, TEXT_ALIGN_LEFT)
+			draw.SimpleText(learnable, "HPW_gui1", w / 2 + 16, 6, HpwRewrite.Colors.White, TEXT_ALIGN_LEFT)
+		end
+
+		local plys = #player.GetAll()
+		local update = CurTime() + 0.2
+
+		local removelrnd = HpwRewrite.Language:GetWord("#removelrnd")
+		local removelrnbl = HpwRewrite.Language:GetWord("#removelrnbl")
+		local exit = HpwRewrite.Language:GetWord("#exitplayer")
+
+		spells.Think = function()
+			if ReceivedInfo and PlayerSpells and PlayerLSpells then
+				self.ShouldUpdate = true
+
+				InPlayerMenu = true
 				EmptyButtons()
-				
-				for k, v in pairs(player.GetAll()) do
-					local btn = self:CreateButton(v:Name(), 0, (k - 1) * 26, 565, 25, spells, function()
-						selplayer = v
-						
-						net.Start("hpwrewrite_AdminFunctions")
-							net.WriteUInt(10, 5)
-							net.WriteEntity(v)
-						net.SendToServer()
+
+				height = 0
+				for k, v in pairs(PlayerSpells) do
+					local btn = self:CreateButton(v, 0, 30 + (k - 1) * 26, 277, 25, spells, function()
+						local menu = DermaMenu()
+						menu:AddOption(removelrnd, function()
+							net.Start("hpwrewrite_AdminFunctions")
+								net.WriteUInt(8, 5)
+								net.WriteString(v)
+								net.WriteEntity(selplayer)
+							net.SendToServer()
+						end)
+						menu:Open()
 					end)
 
 					table.insert(buttons, btn)
+					height = math.max(height, k)
 				end
-			end
 
-			local old = spells.Paint
-			local learned = HpwRewrite.Language:GetWord("#learned")
-			local learnable = HpwRewrite.Language:GetWord("#learnable")
-			spells.Paint = function(spells, w, h)
-				old(spells, w, h)
-
-				surface.SetDrawColor(HpwRewrite.Colors.DarkGrey2)
-				surface.DrawLine(w / 2, 0, w / 2, height > 0 and 28 + height * 26 or 0)
-
-				draw.SimpleText(learned, "HPW_gui1", 16, 6, HpwRewrite.Colors.White, TEXT_ALIGN_LEFT)
-				draw.SimpleText(learnable, "HPW_gui1", w / 2 + 16, 6, HpwRewrite.Colors.White, TEXT_ALIGN_LEFT)
-			end
-
-			local plys = #player.GetAll()
-			local update = CurTime() + 0.2
-
-			local removelrnd = HpwRewrite.Language:GetWord("#removelrnd")
-			local removelrnbl = HpwRewrite.Language:GetWord("#removelrnbl")
-			local exit = HpwRewrite.Language:GetWord("#exitplayer")
-
-			spells.Think = function()
-				if ReceivedInfo and PlayerSpells and PlayerLSpells then
-					self.ShouldUpdate = true
-
-					InPlayerMenu = true
-					EmptyButtons()
-
-					height = 0
-					for k, v in pairs(PlayerSpells) do
-						local btn = self:CreateButton(v, 0, 30 + (k - 1) * 26, 277, 25, spells, function()
-							local menu = DermaMenu()
-							menu:AddOption(removelrnd, function()
-								net.Start("hpwrewrite_AdminFunctions")
-									net.WriteUInt(8, 5)
-									net.WriteString(v)
-									net.WriteEntity(selplayer)
-								net.SendToServer()
-							end)
-							menu:Open()
+				for k, v in pairs(PlayerLSpells) do
+					local btn = self:CreateButton(v, 280, 30 + (k - 1) * 26, 287, 25, spells, function()
+						local menu = DermaMenu()
+						menu:AddOption(removelrnbl, function()
+							net.Start("hpwrewrite_AdminFunctions")
+								net.WriteUInt(9, 5)
+								net.WriteString(v)
+								net.WriteEntity(selplayer)
+							net.SendToServer()
 						end)
+						menu:Open()
+					end)
 
-						table.insert(buttons, btn)
-						height = math.max(height, k)
-					end
-
-					for k, v in pairs(PlayerLSpells) do
-						local btn = self:CreateButton(v, 280, 30 + (k - 1) * 26, 287, 25, spells, function()
-							local menu = DermaMenu()
-							menu:AddOption(removelrnbl, function()
-								net.Start("hpwrewrite_AdminFunctions")
-									net.WriteUInt(9, 5)
-									net.WriteString(v)
-									net.WriteEntity(selplayer)
-								net.SendToServer()
-							end)
-							menu:Open()
-						end)
-
-						table.insert(buttons, btn)
-						height = math.max(height, k)
-					end
-
-					local name = ""
-					if IsValid(selplayer) then name = " " .. selplayer:Name() end
-
-					local btn = self:CreateButton(Format(exit, name), 0, 30 + height * 26, 565, 25, spells, AddPlayers)
-					btn.EnterColor = HpwRewrite.Colors.Red
 					table.insert(buttons, btn)
-
-					ReceivedInfo = false
+					height = math.max(height, k)
 				end
 
-				if not InPlayerMenu and CurTime() > update then
-					local amount = #player.GetAll()
-					if plys != amount then AddPlayers() plys = amount end
-					update = CurTime() + 0.2
-				end
+				local name = ""
+				if IsValid(selplayer) then name = " " .. selplayer:Name() end
+
+				local btn = self:CreateButton(Format(exit, name), 0, 30 + height * 26, 565, 25, spells, AddPlayers)
+				btn.EnterColor = HpwRewrite.Colors.Red
+				table.insert(buttons, btn)
+
+				ReceivedInfo = false
 			end
 
-			AddPlayers()
-			sheet2:AddSheet(HpwRewrite.Language:GetWord("#playerspells"), spells, "icon16/table.png")
+			if not InPlayerMenu and CurTime() > update then
+				local amount = #player.GetAll()
+				if plys != amount then AddPlayers() plys = amount end
+				update = CurTime() + 0.2
+			end
 		end
 
-		-- Tab2 - manager
-		do
-			local spells = self:CreateScrollPanel(nil, nil, nil, nil, win, true)
+		AddPlayers()
+		sheet2:AddSheet(HpwRewrite.Language:GetWord("#playerspells"), spells, "icon16/table.png")
+	end
 
-			local btn = self:CreateButton(Format(HpwRewrite.Language:GetWord("#foundspells"), table.Count(HpwRewrite:GetSpells())), 0, 0, 340, 25, spells, function() 
-			end)
+	-- Tab2 - manager
+	do
+		local spells = self:CreateScrollPanel(nil, nil, nil, nil, win, true)
 
-			local btn = self:CreateButton(HpwRewrite.Language:GetWord("#printconfig"), 341, 0, 220, 25, spells, function() 
-				net.Start("hpwrewrite_AdminFunctions")
-					net.WriteUInt(13, 5)
-				net.SendToServer()
-			end)
+		local btn = self:CreateButton(Format(HpwRewrite.Language:GetWord("#foundspells"), table.Count(HpwRewrite:GetSpells())), 0, 0, 340, 25, spells, function() 
+		end)
 
-			local i = 1
+		local btn = self:CreateButton(HpwRewrite.Language:GetWord("#printconfig"), 341, 0, 220, 25, spells, function() 
+			net.Start("hpwrewrite_AdminFunctions")
+				net.WriteUInt(13, 5)
+			net.SendToServer()
+		end)
 
-			local unknown = HpwRewrite.Language:GetWord("#unknownoption")
-			local enter = HpwRewrite.Language:GetWord("#enter")
-			local invalid = HpwRewrite.Language:GetWord("#invalidplayer")
-			local defaultSkin = HpwRewrite.Language:GetWord("#setdefskin")
-			local addtoblack = HpwRewrite.Language:GetWord("#inblacklist")
-			local addtoadminonly = HpwRewrite.Language:GetWord("#inadminonly")
+		local i = 1
 
-			for k, v in SortedPairs(HpwRewrite:GetSpells()) do
-				local yPos = i * 26
+		local unknown = HpwRewrite.Language:GetWord("#unknownoption")
+		local enter = HpwRewrite.Language:GetWord("#enter")
+		local invalid = HpwRewrite.Language:GetWord("#invalidplayer")
+		local defaultSkin = HpwRewrite.Language:GetWord("#setdefskin")
+		local addtoblack = HpwRewrite.Language:GetWord("#inblacklist")
+		local addtoadminonly = HpwRewrite.Language:GetWord("#inadminonly")
 
-				local btn = self:CreateButton(k, 0, yPos, 340, 25, spells, function()
-					local menu = DermaMenu()
+		for k, v in SortedPairs(HpwRewrite:GetSpells()) do
+			local yPos = i * 26
 
-					for on, o in pairs(options) do
-						menu:AddOption(on, function()
-							local opt = options[on]
+			local btn = self:CreateButton(k, 0, yPos, 340, 25, spells, function()
+				local menu = DermaMenu()
 
-							if not opt then 
-								HpwRewrite:DoNotify(HpwRewrite.Language:GetWord("#unknown"), 1)
+				for on, o in pairs(options) do
+					menu:AddOption(on, function()
+						local opt = options[on]
+
+						if not opt then 
+							HpwRewrite:DoNotify(HpwRewrite.Language:GetWord("#unknown"), 1)
+							return
+						end
+
+						local win = self:CreateWindow(200, 100)
+						win:SetTitle(on)
+						win.lblTitle:SetFont("HPW_gui1")
+
+						local ply = vgui.Create("DComboBox", win)
+						ply:SetPos(10, 30)
+						ply:SetSize(180, 30)
+						ply:SetText("Player")
+						
+						for a, b in pairs(player.GetAll()) do
+							ply:AddChoice(b:Name())
+						end
+
+						local btn = self:CreateButton(enter, 10, 65, 180, 25, win, function()
+							local sel
+							for a, b in pairs(player.GetAll()) do
+								if b:Name() == ply:GetValue() then
+									sel = b
+									break
+								end
+							end
+
+							if not sel then
+								HpwRewrite:DoNotify(invalid, 1)
 								return
 							end
 
-							local win = self:CreateWindow(200, 100)
-							win:SetTitle(on)
-							win.lblTitle:SetFont("HPW_gui1")
-
-							local ply = vgui.Create("DComboBox", win)
-							ply:SetPos(10, 30)
-							ply:SetSize(180, 30)
-							ply:SetText("Player")
-							
-							for a, b in pairs(player.GetAll()) do
-								ply:AddChoice(b:Name())
-							end
-
-							local btn = self:CreateButton(enter, 10, 65, 180, 25, win, function()
-								local sel
-								for a, b in pairs(player.GetAll()) do
-									if b:Name() == ply:GetValue() then
-										sel = b
-										break
-									end
-								end
-
-								if not sel then
-									HpwRewrite:DoNotify(invalid, 1)
-									return
-								end
-
-								opt(sel, k)
-								win:Close()
-							end)
+							opt(sel, k)
+							win:Close()
 						end)
-					end
-
-					for on, o in pairs(options2) do
-						menu:AddOption(on, function() o(k) end)
-					end
-
-					if v.IsSkin then
-						menu:AddOption(defaultSkin, function() 
-							net.Start("hpwrewrite_AdminFunctions")
-								net.WriteUInt(1, 5)
-								net.WriteString(k)
-							net.SendToServer()
-						end)
-					end
-
-					menu:AddOption("Show info", function() CreateInfoPanel(k) end)
-
-					menu:Open()
-				end)
-
-				local btn = self:CreateButton(addtoblack, 341, yPos, 107, 25, spells, function()
-					net.Start("hpwrewrite_AdminFunctions")
-						net.WriteUInt(11, 5)
-						net.WriteString(k)
-					net.SendToServer()
-				end)
-
-				local old = btn.Think
-				btn.Think = function(btn)
-					old(btn)
-					btn:SetColor(HpwRewrite:IsSpellInBlacklist(k) and HpwRewrite.Colors.Red or HpwRewrite.Colors.Green)
+					end)
 				end
 
-				local btn = self:CreateButton(addtoadminonly, 449, yPos, 107, 25, spells, function() 
-					net.Start("hpwrewrite_AdminFunctions")
-						net.WriteUInt(12, 5)
-						net.WriteString(k)
-					net.SendToServer()
-				end)
-
-				local old = btn.Think
-				btn.Think = function(btn)
-					old(btn)
-					btn:SetColor(HpwRewrite:IsSpellInAdminOnly(k) and HpwRewrite.Colors.Red or HpwRewrite.Colors.Green)
+				for on, o in pairs(options2) do
+					menu:AddOption(on, function() o(k) end)
 				end
 
-				i = i + 1
+				if v.IsSkin then
+					menu:AddOption(defaultSkin, function() 
+						net.Start("hpwrewrite_AdminFunctions")
+							net.WriteUInt(1, 5)
+							net.WriteString(k)
+						net.SendToServer()
+					end)
+				end
+
+				menu:AddOption("Show info", function() CreateInfoPanel(k) end)
+
+				menu:Open()
+			end)
+
+			local btn = self:CreateButton(addtoblack, 341, yPos, 107, 25, spells, function()
+				net.Start("hpwrewrite_AdminFunctions")
+					net.WriteUInt(11, 5)
+					net.WriteString(k)
+				net.SendToServer()
+			end)
+
+			local old = btn.Think
+			btn.Think = function(btn)
+				old(btn)
+				btn:SetColor(HpwRewrite:IsSpellInBlacklist(k) and HpwRewrite.Colors.Red or HpwRewrite.Colors.Green)
 			end
-			
-			sheet2:AddSheet(HpwRewrite.Language:GetWord("#manager"), spells, "icon16/report_edit.png")
-		end
 
-		self:SetupSheetDrawing(sheet2, HpwRewrite.Colors.DarkGrey5)
+			local btn = self:CreateButton(addtoadminonly, 449, yPos, 107, 25, spells, function() 
+				net.Start("hpwrewrite_AdminFunctions")
+					net.WriteUInt(12, 5)
+					net.WriteString(k)
+				net.SendToServer()
+			end)
+
+			local old = btn.Think
+			btn.Think = function(btn)
+				old(btn)
+				btn:SetColor(HpwRewrite:IsSpellInAdminOnly(k) and HpwRewrite.Colors.Red or HpwRewrite.Colors.Green)
+			end
+
+			i = i + 1
+		end
+		
+		sheet2:AddSheet(HpwRewrite.Language:GetWord("#manager"), spells, "icon16/report_edit.png")
 	end
+	self:SetupSheetDrawing(sheet2, HpwRewrite.Colors.DarkGrey5)
 	
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#maintree"), newspells)
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#spelllist"), spells)
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#wandskins"), skins)
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#spellbinding"), binding)
 	sheet:AddSheet(HpwRewrite.Language:GetWord("#settingshelp"), info)
-	sheet:AddSheet(HpwRewrite.Language:GetWord("#adminpanel"), admin)
+	if (not game.SinglePlayer() or HpwRewrite.CVars.DebugMode:GetBool()) and HpwRewrite.CheckAdmin(LocalPlayer()) then
+		sheet:AddSheet(HpwRewrite.Language:GetWord("#adminpanel"), admin)
+	end
 
 	-- Updating window
 	do
@@ -2041,13 +2040,3 @@ function HpwRewrite.VGUI:OpenNewSpellManager()
 
 	return win
 end
-
-
-
-
-
-
-
-
-
-
