@@ -615,6 +615,7 @@ else
 		ent:SetFlyDirection(dir)
 		ent:SetSpellData(curspell)
 		ent:SetupOwner(self.Owner)
+		ent:SetPhysicsAttacker(self.Owner)
 		ent:Spawn()
 
 		curspell:OnSpellSpawned(self, ent)

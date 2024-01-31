@@ -4,5 +4,11 @@
 	"tags":[ "fun", "cartoon" ],
 	"ignore":
 	[
+		"git*",
+		"LICENSE",
+		"README.md",
+		"faq.txt",
+		"todo.txt",
+		"spellapi.txt"
 	]
 }

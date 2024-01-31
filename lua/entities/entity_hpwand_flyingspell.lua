@@ -131,7 +131,7 @@ if SERVER then
 
 				-- Disabling all physics to prevent unforeseen consequences
 				self:StopMotionController()
-				self:PhysicsDestroy()
+				--self:PhysicsDestroy()
 
 				timer.Simple(FrameTime(), function()
 					if not self:IsValid() then return end
