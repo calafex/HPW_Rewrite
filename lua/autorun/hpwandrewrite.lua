@@ -2,8 +2,8 @@ if SERVER then AddCSLuaFile() end
 
 HpwRewrite = HpwRewrite or { }
 
-HpwRewrite.Version = 10004
-HpwRewrite.VCheckLink = "https://raw.githubusercontent.com/Ayditor/HPW_Rewrite/master/info.txt"
+HpwRewrite.Version = 10005
+HpwRewrite.VCheckLink = "https://raw.githubusercontent.com/calafex/HPW_Rewrite/master/info.txt"
 HpwRewrite.FavouriteSpells = HpwRewrite.FavouriteSpells or { }
 HpwRewrite.DebugInfo = HpwRewrite.DebugInfo or { }
 

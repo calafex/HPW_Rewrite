@@ -1,1 +1,1 @@
-{"AddonInfo":{"Version":10004}}
+{"AddonInfo":{"Version":10005}}
