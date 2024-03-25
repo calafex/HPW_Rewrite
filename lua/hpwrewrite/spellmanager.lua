@@ -41,6 +41,7 @@ if CLIENT then
 			
 			net.Start("hpwrewrite_Chng")
 				net.WriteString(name)
+				net.WriteBit(false)
 			net.SendToServer()
 		end
 	end
