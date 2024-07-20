@@ -1,4 +1,4 @@
-HpwRewrite.Language:AddLanguage("cn", "chinese")
+HpwRewrite.Language:AddLanguage("cn", "Chinese")
 
 local tab = HpwRewrite.Language
 local f = tab.AddWord
