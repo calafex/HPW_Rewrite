@@ -10,7 +10,8 @@ local fonts = {
 
 local languages = {
 	["English"] = "en",
-	["Russian"] = "ru"
+	["Russian"] = "ru",
+	["Chinese"] = "cn"
 }
 
 local function ChangeKey(btn, name, cvar)

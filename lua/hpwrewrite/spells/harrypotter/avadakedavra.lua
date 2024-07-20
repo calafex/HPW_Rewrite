@@ -81,7 +81,7 @@ function Spell:OnCollide(spell, data)
 		local force = spell:GetFlyDirection() * 10000
 
 		if ent:IsNPC() or ent:IsPlayer() then 
-			HpwRewrite.TakeDamage(ent, self.Owner, ent:Health(), force)
+			HpwRewrite.Kill(ent, self.Owner, force)
 		elseif ent.HPWRagdolledEnt then
 			HpwRewrite.TakeDamage(ent, self.Owner, ent.MaxPenetration, force)
 		end

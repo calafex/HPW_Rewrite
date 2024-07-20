@@ -61,6 +61,16 @@ if SERVER then
 		ent:TakeDamageInfo(d)
 	end
 
+	function HpwRewrite.Kill(ent, attacker, force)
+		if !ent:IsPlayer() and !ent:IsNPC() then return end
+		
+		local damage = ent:Health()
+		if ent:IsPlayer() then
+			damage = damage + ent:GetSuitPower() * 10
+		end
+		HpwRewrite.TakeDamage(ent, attacker, damage, force)
+	end
+
 	function HpwRewrite.BlastDamage(_attacker, pos, radius, damage)
 		local attacker = game.GetWorld()
 		local inflictor = attacker

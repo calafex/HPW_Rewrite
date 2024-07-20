@@ -112,7 +112,7 @@ if SERVER then
 
 	function ENT:PhysicsCollide(data, physobj)
 		local ent = data.HitEntity
-
+		
 		if IsValid(data.HitObject) and data.TheirOldVelocity and ent.HpwRewriteOldVelocity then
 			data.HitObject:AddAngleVelocity(ent.HpwRewriteOldVelocity - data.HitObject:GetAngleVelocity())
 			data.HitObject:SetVelocity(data.TheirOldVelocity)
@@ -129,15 +129,16 @@ if SERVER then
 			if not blockCollide then
 				local velPlus = data.OurOldVelocity and data.OurOldVelocity:GetNormal() * 60 or vector_origin
 
-				-- Disabling all physics to prevent unforeseen consequences
-				self:StopMotionController()
-				--self:PhysicsDestroy()
-
 				timer.Simple(FrameTime(), function()
 					if not self:IsValid() then return end
+					
+					-- Disabling all physics to prevent unforeseen consequences
+					self:StopMotionController()
+					self:PhysicsDestroy()
 
 					local pos = data.HitPos - data.HitNormal * self.PhysObjRadius
 					self:SetPos(pos + velPlus)
+					self:SetAngles(-data.HitNormal:Angle())
 
 					if self.SpellData.ImpactEffect then
 						HpwRewrite.MakeEffect(self.SpellData.ImpactEffect, pos, data.HitNormal:Angle())
@@ -202,10 +203,6 @@ function ENT:OnRemove()
 	end
 
 	if CLIENT then 
-		if self.SpellData and self.SpellData.LeaveParticles then
-			self:StopParticleEmission()
-		else
-			self:StopAndDestroyParticles() 
-		end
+		self:StopAndDestroyParticles() 
 	end
 end
